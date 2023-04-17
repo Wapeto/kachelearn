@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,400;0,600;0,700;1,200;1,400;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+// ANIMATIONS
+
+//_______ VARIABLES________
+$big-font-family: "Tilt Prism", cursive;
+$base-font-family: "Source Serif Pro", "Tilt Prism", serif;
+// Colors
+$main-blue: #1ac0f5;
+$pale-blue: rgba(0, 193, 255, 0.29);
+$darker-blue: #719bfa;
+$main-pink: #e0958d;
+$main-green: #6bface;
+$main-yellow: #f5c26b;
+
+// MIXINS
+@mixin container($width: 80%, $height: 80%){
+    margin: auto;
+    padding: 0 2em;
+    border-radius: 15px;
+    width: $width;
+    height: $height;
+    background-color: $main-blue;
+}
+
+@mixin image($url, $width: 80%, $height: 80%){
+    background-image: url($url);
+    width: $width;
+    height: $height;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+body {
+  background-color: $pale-blue;
+  font-family: $base-font-family;
+  font-weight: 400;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.header-container {
+  //Navigation bar
+  /* Positionning */
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 1.3em;
+
+  /* Display */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5em;
+  list-style: none;
+
+  /* Size */
+  width: 80%;
+  height: 5.5em;
+
+  /* Style */
+  background-color: $darker-blue;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.5s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  #home-button {
+    border-radius: 10px;
+    background-color: $main-pink;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  #login-button {
+    border-radius: 10px;
+    background-color: $main-pink;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .login-container {
+    display: none;
+  }
+}
+
+.modules-container{
+    margin-top: 30vh;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    .module{
+        @include container;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $main-blue;
+        cursor: pointer;
+        box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.3);
+        transition: box-shadow 0.2s ease-in;
+
+        &:hover{
+            box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        h2{
+            background-color: $darker-blue;
+            padding: .2em;
+            font-family: $big-font-family;
+            font-size: 2.5em;
+            font-weight: 400;
+            color: $main-pink;
+            margin: 0;
+        }
+    }
+
+    @for $i from 1 through 3 {
+        div:nth-child(#{$i}){
+            @include image('images/EnglishStudents#{$i}.png', 16vw, 38vh)
+        }
+    }
+}
