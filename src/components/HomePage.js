@@ -33,7 +33,7 @@ export default function HomePage() {
           }}
           onClick={() => ClickedModule("L1")}
         >
-          <h1>Level 1 Module</h1>
+          <h1>L1</h1>
         </div>
         <div
           className="L2-container container module"
@@ -43,7 +43,7 @@ export default function HomePage() {
           }}
           onClick={() => ClickedModule("L2")}
         >
-          <h1>Level 2 Module</h1>
+          <h1>L2</h1>
         </div>
         <div
           className="L3-container container module"
@@ -53,7 +53,7 @@ export default function HomePage() {
           }}
           onClick={() => ClickedModule("L3")}
         >
-          <h1>Level 3 Module</h1>
+          <h1>L3</h1>
         </div>
       </div>
     </div>
