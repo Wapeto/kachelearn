@@ -30,19 +30,19 @@ export default function L1Page() {
     <div className="component-container">
       <h1>L1 Page</h1>
 
-      <div className="container choices-container">
+      <div className="choices-container">
         <h2>Uploads</h2>
-        <div className="choices-subcontainer">
+        <div className="student-uploads-container">
           <div
             id="upload-portfolio-button"
-            className="upload-choice-button"
+            className="button"
             onClick={handleUploadPortfolio}
           >
             <h3>Portfolio</h3>
           </div>
           <div
             id="upload-objectives-button"
-            className="upload-choice-button"
+            className="button"
             onClick={handleUploadObjectives}
           >
             <h3>Objectives</h3>
@@ -50,28 +50,16 @@ export default function L1Page() {
         </div>
       </div>
 
-      <div className="container choices-container">
+      <div className="choices-container">
         <h2>Ressources</h2>
-        <div className="choices-subcontainer">
-          <div
-            id="vocab-button"
-            className="open-ressource-button"
-            onClick={handleVocab}
-          >
+        <div className="teacher-ressources-container">
+          <div id="vocab-button" className="button" onClick={handleVocab}>
             <h3>Vocabulary</h3>
           </div>
-          <div
-            id="gramm-button"
-            className="open-ressource-button"
-            onClick={handleGrammar}
-          >
+          <div id="gramm-button" className="button" onClick={handleGrammar}>
             <h3>Grammar</h3>
           </div>
-          <div
-            id="gramm-button"
-            className="open-ressource-button"
-            onClick={handleYoutube}
-          >
+          <div id="ytb-button" className="button" onClick={handleYoutube}>
             <h3>Youtube</h3>
           </div>
         </div>

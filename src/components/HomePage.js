@@ -17,8 +17,6 @@ export default function HomePage() {
     navigate(`/${module}`);
   };
 
-  // TODO: add a background images to the modules
-
   return (
     <div className="home-page">
       <div className="modules-container">
@@ -31,6 +29,10 @@ export default function HomePage() {
         <div className="module" onClick={() => ClickedModule("L3")}>
           <h2>L3</h2>
         </div>
+      </div>
+      <div className="decorations">
+        <div id="circle1"/>
+        <div id="wave1"/>
       </div>
     </div>
   );

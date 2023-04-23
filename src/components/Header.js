@@ -24,13 +24,15 @@ export default function Header() {
       <header>
         <nav>
           <ul className="header-container">
-            <li id="home-button" className="header-logo">
+            <li className="header-logo">
               <a href="/home">
-                <FontAwesomeIcon
-                  icon="fa-solid fa-house"
-                  size="2xl"
-                  color="#F3DE8A"
-                />
+                <div id="home-button">
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-house"
+                    size="2xl"
+                    color="#F3DE8A"
+                  />
+                </div>
               </a>
             </li>
             <li>
