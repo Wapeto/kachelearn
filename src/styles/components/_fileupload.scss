@@ -1,0 +1,262 @@
+$primary-margin: 0.5em auto;
+
+@keyframes moveBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+@keyframes errorMessageAnim {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-100%);
+  }
+  80% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+%button-style {
+  padding: 0.2em;
+  background-color: $pale-blue;
+  border: 1px solid $darker-blue;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease-in;
+}
+
+@mixin hover-effect {
+  &:hover {
+    box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.3);
+  }
+}
+
+#file-upld {
+  width: 100%;
+  height: 100%;
+  min-height: 50vh;
+  display: flex;
+
+
+  #info-input-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: inherit;
+
+    .credential-container{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      input{
+        margin-top: 6%;
+        width: 50%;
+        border: none;
+        background-color: inherit;
+        font-size: $font-size-3;
+        text-align: center;
+        color: rgba(0, 0, 0, 0.7);
+  
+        &:focus{
+          outline: none;
+        }
+      }
+  
+      button {
+        @extend %button-style;
+        font-size: $font-size-3;
+        margin: 2em auto;
+        background-color: $main-blue;
+        color: black;
+        padding: .5% 2%;
+      }
+    }
+
+    .file-choice-container{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      #file-choice{
+        @include container(16em, 5em);
+        margin-top: 5%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        p {
+          text-align: center;
+          font-size: $font-size-3;
+        }
+      }
+    }
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .filechoice-container {
+    @include container(16em, 20em);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .default-file {
+      background-image: url("../../images/plus-logo.png");
+      overflow: visible;
+      background-size: 120%;
+      background-repeat: no-repeat;
+      background-position: center;
+      mix-blend-mode: multiply;
+      width: 43.5%;
+      height: 35%;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: box-shadow 0.2s ease-in;
+
+      &:hover {
+        box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.3);
+      }
+    }
+    .selected-file {
+      position: relative;
+      margin-bottom: 30%;
+      background-image: url("../../images/file-icon.png");
+      overflow: visible;
+      background-size: 50%;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 10px;
+      width: 100%;
+      height: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .file-title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -25%;
+        width: fit-content;
+        font-weight: bold;
+        font-size: $font-size-1;
+        color: black;
+        margin: auto;
+        margin-top: 75%;
+        padding: 0;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 9%;
+        right: 29%;
+        cursor: pointer;
+        mix-blend-mode: multiply;
+        background-image: url("../../images/X-icon.png");
+        background-size: 120%;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 50%;
+        width: 1.5em;
+        height: 1.5em;
+      }
+    }
+  }
+
+  .upld-form {
+    @include container(16em, 20em);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    input {
+      @extend %button-style;
+      font-size: $font-size-1;
+      margin: 1em auto;
+      color: $darker-blue;
+      padding-left: 0.4em;
+    }
+
+    input[type="text"] {
+      margin-top: 5em;
+    }
+
+    button {
+      @extend %button-style;
+      font-size: $font-size-3;
+      margin: 1em auto;
+    }
+  }
+
+  #energy-wave {
+    @include shape(73%, 50%);
+    width: 728px;
+    height: 204px;
+    background-size: 50%;
+    mix-blend-mode: multiply;
+    z-index: -999;
+    background-repeat: repeat-x;
+    animation: moveBackground 15s linear infinite;
+  }
+
+  .energy-wave-default {
+    background-image: url("../../images/energywave3.png");
+  }
+  .energy-wave-red {
+    background-image: url("../../images/energywave1.png");
+  }
+  .energy-wave-green {
+    background-image: url("../../images/energywave4.png");
+  }
+
+  #alert-message.hidden{
+    display: none;
+  }
+
+  #alert-message.show{
+    position: absolute;
+    z-index: 999;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    background-color: $main-yellow;
+    border-radius: 10px;
+    padding: 1em;
+    animation: errorMessageAnim 3s ease-in-out;
+  }
+}

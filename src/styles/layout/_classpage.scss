@@ -1,0 +1,135 @@
+@import "../abstracts/mixins";
+@import "../abstracts/variables";
+
+.choices-container {
+  @include container(80%, 80%);
+  padding: 1em;
+  margin: 3em auto;
+
+  h2 {
+    text-align: center;
+
+    @media (min-width: $breakpoint-lg) {
+      font-size: $font-size-5;
+    }
+
+    font-size: 3.5em;
+    margin-bottom: 1em;
+  }
+
+  .student-uploads-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 5%;
+
+    #upload-portfolio-button {
+      @include image-zoomout(
+        "../../images/Portfolio1.png",
+        35%,
+        35%,
+        120%,
+        100%
+      );
+    }
+
+    #upload-objectives-button {
+      @include image-zoomout(
+        "../../images/Objectives1.png",
+        35%,
+        35%,
+        120%,
+        100%
+      );
+    }
+  }
+
+  #upload-bilbio-button {
+    @include image-zoomout(
+      "../../images/Bibliography1.png",
+      35%,
+      35%,
+      120%,
+      100%
+    );
+    padding: 0 1em;
+    h3 {
+      @media (min-width: $breakpoint-lg) {
+        font-size: $font-size-4;
+      }
+
+      font-size: $font-size-6;
+    }
+  }
+
+  .button {
+    background-color: $main-green;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease-in;
+
+    h3 {
+      //! Style for responsive font-size
+      @include text-stroke($darker-blue, 1px);
+
+      @media (min-width: $breakpoint-lg) {
+        font-size: $font-size-4;
+      }
+
+      font-size: 4em;
+      font-family: $title-font-family;
+      text-align: center;
+      font-weight: 800;
+    }
+  }
+}
+
+.teacher-ressources-container {
+  @extend .student-uploads-container;
+  color: $main-yellow;
+
+  #vocab-button {
+    @include image-zoomout(
+      "../../images/tiled-bg5.png",
+      25%,
+      35%,
+      80%,
+      65%,
+      repeat
+    );
+  }
+
+  #gramm-button {
+    @include image-zoomout(
+      "../../images/tiled-bg3.png",
+      25%,
+      35%,
+      80%,
+      65%,
+      repeat
+    );
+  }
+
+  #ytb-button {
+    @include image-zoomout(
+      "../../images/tiled-bg2.png",
+      25%,
+      35%,
+      80%,
+      65%,
+      repeat
+    );
+  }
+
+  .button > h3 {
+    @include text-stroke($darker-blue, 1px);
+
+    @media (min-width: $breakpoint-lg) {
+      font-size: $font-size-3;
+    }
+  }
+}

@@ -24,6 +24,23 @@
 }
 
 @mixin text-stroke($color, $width: 1px) {
-  text-shadow: -$width -$width 0 $color, $width -$width 0 $color,
-    -$width $width 0 $color, $width $width 0 $color;
+  text-shadow: (-$width) (-$width) 0 $color, $width (-$width) 0 $color,
+    (-$width) $width 0 $color, $width $width 0 $color;
+}
+
+@mixin image-zoomout(
+  $url,
+  $width: 80%,
+  $height: 80%,
+  $inital-size: 130%,
+  $hover-size: 110%,
+  $repeat: no-repeat
+) {
+  @include image($url, $width, $height);
+  background-repeat: $repeat;
+  background-size: $inital-size;
+  transition: background-size 0.3s ease-out;
+  &:hover {
+    background-size: $hover-size;
+  }
 }

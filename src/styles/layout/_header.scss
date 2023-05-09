@@ -39,6 +39,23 @@
     cursor: pointer;
   }
 
+  .backpage-holder {
+    margin: 0 25vw;
+
+    .backpage-button {
+      padding: 0.5em;
+      background-color: $main-yellow;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.25) inset;
+      transition: box-shadow 0.2s ease-in;
+
+      &:hover {
+        box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.5) inset;
+      }
+    }
+  }
+
   #login-button {
     border-radius: 10px;
     background-color: $main-pink;

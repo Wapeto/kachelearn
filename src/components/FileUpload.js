@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import firebase from "../firebaseConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -6,13 +6,86 @@ const FileUpload = ({ filetype, classx }) => {
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
 
-
   const textFilesTypes = ["application/pdf", "application/msword"];
   const imageFilesTypes = ["image/png", "image/jpeg", "image/jpg"];
+
+  const energyWave = useRef(null);
+  const fileInputRef = useRef(null);
+  const alertMessage = useRef(null);
+
+  const updateEnergyWaveClass = () => {
+    if (!energyWave.current) return;
+
+    if (file) {
+      if (handleFileReq(file)) {
+        energyWave.current.className = "energy-wave-green";
+      } else {
+        energyWave.current.className = "energy-wave-red";
+      }
+    } else {
+      energyWave.current.className = "energy-wave-default";
+    }
+  };
+
+  const clearFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const updateFileImage = () => {
+    const fileImage = document.querySelector(".file-choice-btn");
+    if (!file) {
+      fileImage.className = "file-choice-btn default-file";
+      if (fileImage.querySelector("p")) {
+        fileImage.removeChild(fileImage.querySelector("p"));
+      }
+      if (fileImage.querySelector("div")) {
+        fileImage.removeChild(fileImage.querySelector("div"));
+      }
+    } else {
+      fileImage.className = "file-choice-btn selected-file";
+      const fileTitle = document.createElement("p");
+      fileTitle.className = "file-title";
+      fileTitle.innerHTML =
+        file.name.length > 20 ? file.name.slice(0, 20) + "..." : file.name;
+      fileImage.appendChild(fileTitle);
+
+      const closeBtn = document.createElement("div");
+      closeBtn.className = "close-btn";
+      closeBtn.addEventListener("click", () => {
+        setFile(null);
+        clearFileInput();
+      });
+      fileImage.appendChild(closeBtn);
+    }
+  };
+
+  const handleFileInput = () => {
+    document.getElementById("file-input").click();
+  };
+
+  useEffect(() => {
+    updateEnergyWaveClass();
+    updateFileImage();
+    console.log("Current file: ", file);
+
+    // eslint-disable-next-line
+  }, [file]);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
+
+
+  function displayErrorMessage(message) {
+    alertMessage.current.innerHTML = message;
+    alertMessage.current.className = "show";
+
+    setTimeout(() => {
+      alertMessage.current.className = "hidden";
+    }, 3000);
+  }
 
   const handleFileReq = (file) => {
     const size = file.size * 0.000001;
@@ -22,7 +95,8 @@ const FileUpload = ({ filetype, classx }) => {
       alert("File size is too large. Max size is 10MB.");
       return false;
     } else if (filetype === "Portfolio" && !textFilesTypes.includes(type)) {
-      alert("File type is not supported. Supported types are: pdf, doc, docx.");
+      // alert("File type is not supported. Supported types are: pdf, doc, docx.");
+      displayErrorMessage("File type is not supported. Supported types are: pdf, doc, docx.");
       return false;
     } else if (filetype === "Image" && !imageFilesTypes.includes(type)) {
       alert("File type is not supported. Supported types are: png, jpeg, jpg.");
@@ -114,35 +188,35 @@ const FileUpload = ({ filetype, classx }) => {
   };
 
   return (
-    <form className="upld-form">
-      <div className="upld-form-group">
-        <label className="upld-input">
-          Full name :
-          <input type="text" placeholder="Name"/>
-        </label>
-        <label className="upld-input">
-          Student email :
-          <input type="email" placeholder="Email"/>
-        </label>
-        <label id="file-upld">
-          Upload {filetype} :
-          <div>
-            <input
-              type="file"
-              onChange={handleFileChange}
-              className="choose-file-input"
-            />
-            <button onClick={(e) => handleUpload(e)} className="upld-button">
-              <FontAwesomeIcon icon="fa-solid fa-cloud-arrow-up" />
-            </button>
-            {uploadProgress > 0 && (
-              <p>Upload progress: {Math.round(uploadProgress)}%</p>
-            )}
-          </div>
-        </label>
+    <div id="file-upld">
+      <div className="text-input-container">
+        <input type="text" id="info-input"/>
       </div>
-    </form>
+      <div className="filechoice-container">
+        <input
+          type="file"
+          id="file-input"
+          ref={fileInputRef}
+          hidden
+          onChange={handleFileChange}
+        />
+        <div className="file-choice-btn" onClick={handleFileInput}></div>
+      </div>
+      <div id="energy-wave" ref={energyWave}></div>
+      <div className="upld-form">
+        <input type="text" placeholder="Full name" />
+        <input type="email" placeholder="Student email" />
+        <button onClick={(e) => handleUpload(e)} className="upld-button">
+          <FontAwesomeIcon icon="fa-solid fa-cloud-arrow-up" />
+        </button>
+        {uploadProgress > 0 && (
+          <p>Upload progress: {Math.round(uploadProgress)}%</p>
+        )}
+      </div>
+      <div id="alert-message" className="hidden" ref={alertMessage}></div>
+    </div>
   );
 };
 
 export default FileUpload;
+ 

@@ -2,6 +2,40 @@
 @import "abstracts/mixins";
 @import "abstracts/functions";
 
-@import "base/reset";
+// @import "base/reset";
 @import "base/base";
-@import "base/typography"; 
+@import "base/typography";
+
+@import "components/decorations";
+@import "components/fileupload";	
+
+@import "layout/header";
+
+@import "pages/homepage";
+@import "pages/L1page";
+@import "pages/L2page";
+@import "pages/L3page";
+
+
+
+
+.component-container {
+  margin-top: 10em;
+  width: 100%;
+  height: 100%;
+
+  h1 {
+    @include text-stroke($main-pink);
+    margin: 1em auto;
+    margin-bottom: 5%;
+    text-align: center;
+    font-size: 3em;
+    background-color: $main-yellow;
+    color: white;
+    width: fit-content;
+    padding: 0.5em 1em;
+    font-family: $title-font-family;
+    font-weight: 700;
+    border-radius: 10px;
+  }
+}
