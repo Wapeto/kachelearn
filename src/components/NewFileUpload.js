@@ -6,17 +6,19 @@ const NewFileUpload = ({ filetype, classx }) => {
   const fileUpload = useRef(null);
   const fileChoice = useRef(null);
   const fileInputRef = useRef(null);
+  const fileChange = useRef(null);
+  const errorContainerRef = useRef(null);
   const [showCredentials, setShowCredentials] = useState(true);
   const [showFileChoice, setShowFileChoice] = useState(false);
+  const [showFile, setShowFile] = useState(false);
+  const [showProgress, setShowProgress] = useState(false);
   const [email, setEmail] = useState(null);
   const [name, setName] = useState(null);
   const [file, setFile] = useState(null);
-  const [step, setStep] = useState(3);
-
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [step, setStep] = useState(1);
   useEffect(() => {
-    console.log("Triggered");
-    console.log("Step: ", step);
-
+    // console.log("Step: ", step);
     switch (step) {
       case 1:
         if (inputRef.current) {
@@ -46,8 +48,19 @@ const NewFileUpload = ({ filetype, classx }) => {
       console.log("Class: ", classx);
       console.log("Email: ", email);
       console.log("Name: ", name);
+      setShowFileChoice(false);
+      setShowFile(true);
     }
   }, [file, filetype, classx, email, name]);
+
+  const showErrorMessage = (message) => {
+    errorContainerRef.current.innerHTML = message;
+    errorContainerRef.current.className = "show";
+
+    setTimeout(() => {
+      errorContainerRef.current.className = "hidden";
+    }, 3000);
+  };
 
   const handleEmail = (email) => {
     if (
@@ -78,7 +91,6 @@ const NewFileUpload = ({ filetype, classx }) => {
       return false;
     }
   };
-
   const getEmail = () => {
     if (inputRef.current.value) {
       if (handleEmail(inputRef.current.value)) {
@@ -86,8 +98,13 @@ const NewFileUpload = ({ filetype, classx }) => {
         console.log("Valid email");
       } else {
         console.log("Invalid email");
+        showErrorMessage("Please enter a valid student email");
         setStep(step - 1);
       }
+    } else {
+      console.log("Invalid email");
+      showErrorMessage("Please enter a valid student email");
+      setStep(step - 1);
     }
   };
 
@@ -98,8 +115,13 @@ const NewFileUpload = ({ filetype, classx }) => {
         console.log("Valid name: ", inputRef.current.value);
       } else {
         console.log("Invalid name");
+        showErrorMessage("Please enter a valid name");
         setStep(step - 1);
       }
+    } else {
+      console.log("Invalid name");
+      showErrorMessage("Please enter a valid name");
+      setStep(step - 1);
     }
   };
 
@@ -109,6 +131,33 @@ const NewFileUpload = ({ filetype, classx }) => {
 
   const handleFileInput = () => {
     document.getElementById("file-input").click();
+  };
+
+  const handleFileUpload = () => {
+    setShowFile(false);
+    setShowProgress(true);
+    const storageRef = firebase.storage().ref();
+    const folderPath = "Students-Uploads/" + classx + "/" + filetype + "/";
+    const fileRef = storageRef.child(
+      `${folderPath}/${filetype} of ${name} [${email.toLowerCase()}]`
+    );
+    const uploadTask = fileRef.put(file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgress(progress);
+      },
+      (error) => {
+        console.error("Error uploading file:", error);
+      },
+      () => {
+        setFile(null);
+        setUploadProgress("Done");
+      }
+    );
   };
 
   const NextStep = () => {
@@ -130,7 +179,7 @@ const NewFileUpload = ({ filetype, classx }) => {
         {showFileChoice && (
           <div className="file-choice-container">
             <div id="file-choice" ref={fileChoice} onClick={handleFileInput}>
-              <p>Choose a file</p>
+              Choose a file
             </div>
             <input
               type="file"
@@ -142,6 +191,47 @@ const NewFileUpload = ({ filetype, classx }) => {
             {/* <button id="upload-file-btn" ref={fileUpload}></button> */}
           </div>
         )}
+        {showFile && (
+          <div className="file-container">
+            <div className="file-image"></div>
+            <p>{file.name}</p>
+            <span className="buttons">
+              <button
+                id="change-file-btn"
+                ref={fileChange}
+                onClick={handleFileInput}
+              >
+                Change File
+              </button>
+              <button
+                id="upload-file-btn"
+                ref={fileUpload}
+                onClick={handleFileUpload}
+              >
+                Upload File
+              </button>
+              <input
+                type="file"
+                id="file-input"
+                ref={fileInputRef}
+                hidden
+                onChange={handleFileChange}
+              />
+            </span>
+          </div>
+        )}
+        {showProgress && (
+          <div className="progress-container">
+            {uploadProgress === 0 && <p>Uploading file, please wait...</p>}
+            {uploadProgress > 0 && (
+              <p>Upload progress: {Math.round(uploadProgress)}%</p>
+            )}
+            {uploadProgress === "Done" && <p>File uploaded successfully !</p>}
+          </div>
+        )}
+      </div>
+      <div id="error-container" className="hidden" ref={errorContainerRef}>
+        <p id="error-message">Error</p>
       </div>
     </div>
   );
