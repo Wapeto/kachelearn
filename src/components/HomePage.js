@@ -19,6 +19,7 @@ export default function HomePage() {
 
   return (
     <div className="home-page">
+
       <div className="modules-container">
         <div className="module" onClick={() => ClickedModule("L1")}>
           <h2>L1</h2>
@@ -28,6 +29,7 @@ export default function HomePage() {
         </div>
         <div className="module" onClick={() => ClickedModule("L3")}>
           <h2>L3</h2>
+
         </div>
       </div>
       <div className="decorations">
