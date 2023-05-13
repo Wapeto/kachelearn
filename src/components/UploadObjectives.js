@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import FileUpload from "./FileUpload";
+import NewFileUpload from "./NewFileUpload";
 import FileList from "./FileList";
 import { AuthContext } from "../contexts/AuthContext";
 
@@ -15,7 +15,7 @@ export default function UploadPortfolio({ classx }) {
         {currentUser ? (
           <FileList folderPath={`Students-Uploads/${classx}/Objectives`} />
         ) : (
-          <FileUpload filetype={"Objectives"} classx={classx} />
+          <NewFileUpload filetype={"Objectives"} classx={classx} />
         )}
       </div>
     </div>

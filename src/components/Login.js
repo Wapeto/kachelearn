@@ -52,19 +52,7 @@ export default function Login() {
 
   return (
     <div id="login-form-header" className="login-out-logo">
-      <div
-        id="login-button"
-        style={{
-          borderRadius: "10px",
-          backgroundColor: "rgba(9, 41, 99, 0.15)",
-          width: "45px",
-          height: "45px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          cursor: "pointer",
-        }}
-      >
+      <div id="login-button">
         <FontAwesomeIcon icon="fa-solid fa-user-graduate" size="2xl" />
       </div>
       <div className="login-container">

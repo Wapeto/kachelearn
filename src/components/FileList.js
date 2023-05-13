@@ -1,13 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import firebase from "../firebaseConfig";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AuthContext } from "../contexts/AuthContext";
 
-// TODO: add a search bar to filter the files
 
 const FileList = ({ folderPath }) => {
-  const [files, setFiles] = useState([]);
-  const [confirmDeleteIndex, setConfirmDeleteIndex] = useState(null);
+  const { currentUser } = useContext(AuthContext);
 
+  const [files, setFiles] = useState([]);
+  const [contextMenu, setContextMenu] = useState({
+    visible: false,
+    x: "0px",
+    y: "0px",
+    file: null,
+  });
+  const [searchTerm, setSearchTerm] = useState("");
   const fetchFiles = async (folderPath) => {
     const storageRef = firebase.storage().ref();
     const folderRef = storageRef.child(folderPath);
@@ -23,14 +29,6 @@ const FileList = ({ folderPath }) => {
       console.error("Error fetching files:", error);
     }
     return files;
-  };
-
-  const handleTrashClick = (index) => {
-    setConfirmDeleteIndex(index);
-  };
-
-  const cancelDelete = () => {
-    setConfirmDeleteIndex(null);
   };
 
   const deleteFile = (fileURL) => {
@@ -60,52 +58,90 @@ const FileList = ({ folderPath }) => {
     fetchAndSetFiles();
   }, [folderPath]);
 
+  const filteredFiles = files.filter((file) =>
+    file.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleContextMenu = (event, file) => {
+    event.preventDefault();
+    setContextMenu({
+      visible: true,
+      x: `${event.pageX}px`,
+      y: `${event.pageY}px`,
+      file,
+    });
+    document.addEventListener("click", closeContextMenu);
+  };
+
+  const closeContextMenu = () => {
+    setContextMenu({ visible: false, x: "0px", y: "0px", file: null });
+    document.removeEventListener("click", closeContextMenu);
+  };
+
   return (
-    <div
-      style={{
-        overflowY: "scroll",
-        maxHeight: "200px",
-        padding: "10px",
-        borderRadius: "6px",
-      }}
-      className="scrollable-div"
-    >
-      {files.length === 0 && <div>No files found.</div>}
-      {files.map((file, index) => (
-        <div key={index} className="file-container">
-          <a
-            href={file.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="file-link"
-          >
-            {file.name}
-          </a>
-          {confirmDeleteIndex === index ? (
-            <>
-              <FontAwesomeIcon
-                icon="fa-solid fa-check"
-                style={{ cursor: "pointer", marginRight: "5px", color: "green"}}
-                onClick={() => deleteFile(file.url)}
-                className="deletion-icon"
-              />
-              <FontAwesomeIcon
-                icon="fa-solid fa-times"
-                style={{ cursor: "pointer", marginRight: "5px", color: "red" }}
-                onClick={cancelDelete}
-                className="deletion-icon"
-              />
-            </>
-          ) : (
-            <FontAwesomeIcon
-              icon="fa-solid fa-trash"
-              style={{ cursor: "pointer", marginRight: "5vw" }}
-              onClick={() => handleTrashClick(index)}
-              className="deletion-icon"
-            />
+    <div className="file-list">
+      <input
+        type="text"
+        placeholder="Search for a file..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-bar"
+      />
+      <div
+        style={{
+          overflowY: "scroll",
+          maxHeight: "310px",
+          borderRadius: "6px",
+        }}
+        className="scrollable-div"
+      >
+        {files.length === 0 && <div>No files found.</div>}
+        {filteredFiles.length > 0 ? (
+          filteredFiles.map((file, index) => (
+            <div
+              key={index}
+              className="file-container"
+              onClick={() => window.open(file.url, "_blank")}
+              onContextMenu={(e) => handleContextMenu(e, file)}
+            >
+              <a
+                href={file.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="file-link"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {file.name}
+              </a>
+            </div>
+          ))
+        ) : (
+          <div>No files matching the search terms.</div>
+        )}
+        {contextMenu.visible && currentUser &&(
+            <div
+              style={{
+                top: contextMenu.y,
+                left: contextMenu.x,
+                zIndex: 1000,
+              }}
+              id="context-menu"
+            >
+              <p
+                className="button"
+                onClick={() => window.open(contextMenu.file.url, "_blank")}
+              >
+                Open
+              </p>
+              <p
+                className="button"
+                onClick={() => deleteFile(contextMenu.file.url)}
+              >
+                Delete
+              </p>
+            </div>
           )}
-        </div>
-      ))}
+      </div>
     </div>
   );
 };
