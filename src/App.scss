@@ -1,37 +1,50 @@
 @import url("https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,400;0,600;0,700;1,200;1,400;1,600;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 // ANIMATIONS
 
 //_______ VARIABLES________
-$big-font-family: "Tilt Prism", cursive;
+$title-font-family: "Noto Serif Hebrew", serif;
 $base-font-family: "Source Serif Pro", "Tilt Prism", serif;
 // Colors
 $main-blue: #1ac0f5;
-$pale-blue: rgba(0, 193, 255, 0.29);
+$pale-blue: #a5e9ff;
 $darker-blue: #719bfa;
 $main-pink: #e0958d;
 $main-green: #6bface;
-$main-yellow: #f5c26b;
+$main-yellow: hsl(38, 100%, 65%);
 
 // MIXINS
-@mixin container($width: 80%, $height: 80%){
-    margin: auto;
-    padding: 0 2em;
-    border-radius: 15px;
-    width: $width;
-    height: $height;
-    background-color: $main-blue;
+@mixin container($width: 80%, $height: 80%) {
+  margin: auto;
+  padding: 0 2em;
+  border-radius: 15px;
+  width: $width;
+  height: $height;
+  background-color: $main-blue;
 }
 
-@mixin image($url, $width: 80%, $height: 80%){
-    background-image: url($url);
-    width: $width;
-    height: $height;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+@mixin image($url, $width: 80%, $height: 80%) {
+  background-image: url($url);
+  width: $width;
+  height: $height;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@mixin shape($x, $y) {
+  position: absolute;
+  top: $x;
+  left: $y;
+  transform: translate(-50%, -50%);
+}
+
+@mixin text-stroke($color, $width: 1px) {
+  text-shadow: -$width -$width 0 $color, $width -$width 0 $color,
+            -$width $width 0 $color, $width $width 0 $color;
 }
 
 body {
@@ -44,13 +57,13 @@ body {
 }
 
 .header-container {
-  //Navigation bar
   /* Positionning */
   position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   margin-top: 1.3em;
+  z-index: 3;
 
   /* Display */
   display: flex;
@@ -96,45 +109,258 @@ body {
   }
 
   .login-container {
+    position: absolute;
     display: none;
+    background-color: $main-blue;
+    padding: 4% 4%;
+    border-radius: 15px;
+    border: 2px solid $darker-blue;
+    // Placing
+    top: 450%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .login-form-input {
+      margin-bottom: 1.5em;
+      font-size: 1.5em;
+
+      input {
+        border-radius: 10px;
+        border: 2px solid $pale-blue;
+        padding: 0 1em;
+        font-size: 1em;
+        font-weight: 200;
+      }
+    }
+
+    #submit-login {
+      border-radius: 10px;
+      background-color: $darker-blue;
+      width: 128px;
+      height: 64px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5em;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: $main-pink;
+      }
+    }
+
+    .error-message {
+      position: relative;
+      top: 0;
+    }
   }
 }
 
-.modules-container{
+.home-page {
+  .modules-container {
     margin-top: 30vh;
     height: auto;
     width: 100%;
     display: flex;
     flex-direction: row;
+    z-index: 0;
 
-    .module{
-        @include container;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: $main-blue;
-        cursor: pointer;
-        box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.3);
-        transition: box-shadow 0.2s ease-in;
+    .module {
+      @include container;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $main-blue;
+      cursor: pointer;
+      box-shadow: 0 5px 15px 5px rgba(0, 0, 0, 0.4);
+      z-index: 2;
+      transition: box-shadow 0.2s ease-in;
 
-        &:hover{
-            box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.5);
-        }
+      &:hover {
+        box-shadow: 0 5px 25px 5px rgba(0, 0, 0, 0.7);
+      }
 
-        h2{
-            background-color: $darker-blue;
-            padding: .2em;
-            font-family: $big-font-family;
-            font-size: 2.5em;
-            font-weight: 400;
-            color: $main-pink;
-            margin: 0;
-        }
+      h2 {
+        position: absolute;
+        bottom: 7%;
+        background-color: $darker-blue;
+        padding: 2% 15%;
+        border-radius: 15px;
+        font-family: $title-font-family;
+        font-size: 2.5em;
+        color: $main-pink;
+        letter-spacing: 5px;
+      }
     }
 
     @for $i from 1 through 3 {
-        div:nth-child(#{$i}){
-            @include image('images/EnglishStudents#{$i}.png', 16vw, 38vh)
-        }
+      div:nth-child(#{$i}) {
+        @include image("images/EnglishStudents#{$i}.png", 16vw, 50vh);
+      }
     }
+  }
+
+  .decorations {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+
+    #circle1 {
+      @include shape(89%, 5%);
+      width: 244px;
+      height: 244px;
+      background-image: url("data:image/svg+xml,%3Csvg%20width%3D%22244%22%20height%3D%22244%22%20viewBox%3D%220%200%20244%20244%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M244%20256.5C244%20398.161%20124.012%20513%20-24%20513C-172.012%20513%20-292%20398.161%20-292%20256.5C-292%20114.839%20-172.012%200%20-24%200C124.012%200%20244%20114.839%20244%20256.5Z%22%20fill%3D%22%231AC0F5%22%2F%3E%3Cpath%20d%3D%22M170%20256.5C170%20371.651%2083.1432%20465%20-24%20465C-131.143%20465%20-218%20371.651%20-218%20256.5C-218%20141.349%20-131.143%2048%20-24%2048C83.1432%2048%20170%20141.349%20170%20256.5Z%22%20fill%3D%22%23719BFA%22%2F%3E%3C%2Fsvg%3E%0A");
+      background-size: cover;
+    }
+
+    #wave1 {
+      @include shape(69%, 82%);
+      width: 701px;
+      height: 608px;
+      background-image: url("data:image/svg+xml,%3Csvg width='701' height='608' viewBox='0 0 701 608' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M213.5 519.5C120.5 504 -7.67463 545.213 1.32537 607.546H937.825V103.046C912.325 53.5462 685.7 -84.7001 670.5 74.4999C651.5 273.5 724.044 314.023 626.5 357.5C539 396.5 522.05 527.5 461 544C405.5 559 336.38 539.98 213.5 519.5Z' fill='%231AC0F5'/%3E%3Cpath d='M326.5 576C152.1 553.6 67.992 545.38 68.3253 607.546H851.825V367.546C827.492 371.88 794.8 240 738 332C681.2 424 598.5 350 565.5 486C554.702 530.5 500.9 598.4 326.5 576Z' fill='%23719BFA'/%3E%3C/svg%3E");
+      background-size: cover;
+    }
+  }
+}
+
+.component-container {
+  margin-top: 10em;
+  width: 100%;
+  height: 100%;
+  // padding: 0 7em;
+
+  h1 {
+    @include text-stroke($main-pink);
+    margin: 1em auto;
+    margin-bottom: 5%;
+    text-align: center;
+    font-size: 3em;
+    background-color: $main-yellow;
+    color: white;
+    width: fit-content;
+    padding: 0.5em 1em;
+    font-family: $title-font-family;
+    font-weight: 700;
+    border-radius: 10px;
+  }
+
+  .choices-container {
+    @include container(80%, 80%);
+    padding: 1em;
+    margin: 3em auto;
+
+    h2 {
+      text-align: center;
+      font-size: 3.5em;
+      margin-bottom: 1em;
+    }
+
+    .student-uploads-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding-bottom: 5%;
+
+      #upload-portfolio-button {
+        @include image("images/Portfolio1.png", 35%, 35%);
+        background-size: 130%;
+        transition: background-size 0.2s ease-in;
+
+        &:hover {
+          background-size: 110%;
+        }
+      }
+
+
+      #upload-objectives-button {
+        @include image("images/Objectives1.png", 35%, 35%);
+        background-size: 130%;
+        transition: background-size 0.2s ease-in;
+
+        &:hover {
+          background-size: 110%;
+        }
+      }
+
+
+      #upload-bilbio-button {
+        @include image("images/Bibliography1.png", 35%, 35%);
+        background-size: 130%;
+        transition: background-size 0.2s ease-in;
+
+        &:hover {
+          background-size: 110%;
+        }
+      }
+
+      .button {
+        background-color: $main-green;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.3);
+        transition: box-shadow 0.3s ease-in;
+
+        h3 {
+          @include text-stroke($darker-blue, 1px);
+          font-size: 4em;
+          font-family: $title-font-family;
+          text-align: center;
+          font-weight: 800;
+        }
+      }
+    }
+
+    .teacher-ressources-container {
+      @extend .student-uploads-container;
+      color: $main-yellow;
+
+      #vocab-button {
+        @include image("images/tiled-bg5.png", 25%, 35%);
+        background-repeat: repeat;
+        background-size: 70%;
+        transition: background-size 0.2s ease-in;
+
+        &:hover {
+          background-size: 55%;
+        }
+      }
+
+      #gramm-button {
+        @include image("images/tiled-bg3.png", 25%, 35%);
+        background-repeat: repeat;
+        background-size: 70%;
+        transition: background-size 0.2s ease-in;
+
+        &:hover {
+          background-size: 55%;
+        }
+      }
+
+      #ytb-button {
+        @include image("images/tiled-bg2.png", 25%, 35%);
+        background-repeat: repeat;
+        background-size: 70%;
+        transition: background-size 0.2s ease-in;
+
+        &:hover {
+          background-size: 55%;
+        }
+      }
+
+      .button > h3 {
+        @include text-stroke($darker-blue, 1px);
+        font-size: 3em;
+      }
+    }
+  }
 }

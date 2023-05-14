@@ -22,46 +22,33 @@ export default function L3Page() {
 
   document.title = "L3 Page";
 
-
   return (
     <div className="component-container">
       <h1>L3 Page</h1>
 
-      <div className="container choices-container">
+      <div className="choices-container">
         <h2>Uploads</h2>
-        <div className="choices-subcontainer">
+        <div className="student-uploads-container">
           <div
             id="upload-bilbio-button"
-            className="upload-choice-button"
+            className="button"
             onClick={handleUploadBiblio}
           >
-            <h3>Bilbiography</h3>
+            <h3>Bibliography</h3>
           </div>
         </div>
       </div>
 
-      <div className="container choices-container">
+      <div className="choices-container">
         <h2>Ressources</h2>
-        <div className="choices-subcontainer">
-        <div
-            id="vocab-button"
-            className="open-ressource-button"
-            onClick={handleVocab}
-          >
+        <div className="teacher-ressources-container">
+          <div id="vocab-button" className="button" onClick={handleVocab}>
             <h3>Vocabulary</h3>
           </div>
-          <div
-            id="gramm-button"
-            className="open-ressource-button"
-            onClick={handleGrammar}
-          >
+          <div id="gramm-button" className="button" onClick={handleGrammar}>
             <h3>Grammar</h3>
           </div>
-          <div
-            id="gramm-button"
-            className="open-ressource-button"
-            onClick={handleYoutube}
-          >
+          <div id="ytb-button" className="button" onClick={handleYoutube}>
             <h3>Youtube</h3>
           </div>
         </div>

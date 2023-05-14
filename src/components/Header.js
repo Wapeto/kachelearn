@@ -24,35 +24,31 @@ export default function Header() {
       <header>
         <nav>
           <ul className="header-container">
-            <li
-              style={{
-                borderRadius: "10px",
-                backgroundColor: "rgba(9, 41, 99, 0.15)",
-                width: "45px",
-                height: "45px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                cursor: "pointer",
-              }} id="home-button" className="header-logo"
-            >
+            <li className="header-logo">
               <a href="/home">
-                <FontAwesomeIcon
-                  icon="fa-solid fa-house"
-                  size="2xl"
-                  color="#F3DE8A"
-                />
+                <div id="home-button">
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-house"
+                    size="2xl"
+                    color="#F3DE8A"
+                  />
+                </div>
               </a>
             </li>
             <li>
-              <div className="backpage-holder">
-                {<BackPageButton />}
-              </div>
+              <div className="backpage-holder">{<BackPageButton />}</div>
             </li>
             <li>
               {currentUser ? (
-                <button onClick={handleLogout} id="logout-button" className="login-out-logo">
-                  <FontAwesomeIcon icon="fa-solid fa-arrow-right-from-bracket" size="2xl" />
+                <button
+                  onClick={handleLogout}
+                  id="logout-button"
+                  className="login-out-logo"
+                >
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-arrow-right-from-bracket"
+                    size="2xl"
+                  />
                 </button>
               ) : (
                 <Login />

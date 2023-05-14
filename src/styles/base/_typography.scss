@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,200;0,400;0,600;0,700;1,200;1,400;1,600;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Hebrew:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+// Variables
+$title-font-family: "Noto Serif Hebrew", serif;
+$base-font-family: "Source Serif Pro", "Tilt Prism", serif;
+
+
+// Font sizes
+$font-size-base: 35px;
+$font-size-1: $font-size-base * 0.5;
+$font-size-2: $font-size-base * 0.75;
+$font-size-3: $font-size-base * 1;
+$font-size-4: $font-size-base * 1.25;
+$font-size-5: $font-size-base * 1.5;
+$font-size-6: $font-size-base * 1.75;
+$font-size-7: $font-size-base * 2;
+
+$font-size-large: $font-size-base * 1.25;
+$font-size-small: $font-size-base * 0.75;
+
+// Font weights
+$font-weight-base: 400;
+$font-weight-bold: 700;
+
+body {
+    font-family: $base-font-family;
+}
