@@ -79,53 +79,7 @@
     cursor: pointer;
   }
 
-  .login-container {
-    position: absolute;
-    display: none;
-    background-color: $main-blue;
-    padding: 4% 4%;
-    border-radius: 15px;
-    border: 2px solid $darker-blue;
-    // Placing
-    top: 450%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 
-    .login-form-input {
-      margin-bottom: 1.5em;
-      font-size: 1.5em;
-
-      input {
-        border-radius: 10px;
-        border: 2px solid $pale-blue;
-        padding: 0 1em;
-        font-size: 1em;
-        font-weight: 200;
-      }
-    }
-
-    #submit-login {
-      border-radius: 10px;
-      background-color: $darker-blue;
-      width: 128px;
-      height: 64px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.5em;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-
-      &:hover {
-        background-color: $main-pink;
-      }
-    }
-
-    .error-message {
-      position: relative;
-      top: 0;
-    }
-  }
 
   #logout-button{
     border-radius: 10px;

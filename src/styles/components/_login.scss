@@ -1,0 +1,108 @@
+.login-container {
+  position: absolute;
+  display: none;
+  background-color: $main-blue;
+  padding: 4% 4%;
+  border-radius: 15px;
+  border: 2px solid $darker-blue;
+  width: 90%;
+
+  // Placing
+  top: 450%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  @media (min-width: $breakpoint-sm) {
+    width: 70%;
+  }
+
+  @media (min-width: $breakpoint-md) {
+    width: 50%;
+  }
+
+  @media (min-width: $breakpoint-xl) {
+    width: 40%;
+  }
+  .login-form-input {
+    margin-bottom: 1.5em;
+    font-size: 1em;
+
+    input {
+      width: 120px;
+      border-radius: 10px;
+      border: 2px solid $pale-blue;
+      padding: 0 1em;
+      font-size: 1em;
+      font-weight: 200;
+    }
+
+    @media (min-width: $breakpoint-md) {
+      input {
+        width: 160px;
+      }
+    }
+
+    @media (min-width: $breakpoint-lg) {
+      font-size: 1.5em;
+      input {
+        width: 220px;
+      }
+    }
+  }
+
+  #submit-login {
+    border-radius: 10px;
+    background-color: $darker-blue;
+    width: 128px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: $main-pink;
+    }
+  }
+
+
+  @keyframes login-animation{
+    0% {
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  #login-error-container.show {
+    position: fixed;
+    bottom: -15%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    animation: login-animation 3s ease-out;
+    width: fit-content;
+
+    font-size: $font-size-1;
+    text-align: center;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.7);
+    background-color: $main-yellow;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.1);
+    padding: 0.5em 2em;
+  }
+
+  #login-error-container.hidden {
+    display: none;
+  }
+}

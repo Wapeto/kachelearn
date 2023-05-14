@@ -1,10 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import firebase from "../firebaseConfig";
 import { AuthContext } from "../contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Login() {
   const { currentUser } = useContext(AuthContext);
+  const errorContainerRef = useRef(null);
 
   const loginFormStyle = {
     display: "flex",
@@ -14,6 +15,7 @@ export default function Login() {
     width: "100%",
     height: "100%",
   };
+
   if (!currentUser) {
     document.addEventListener("click", (e) => {
       const loginForm = document.querySelector(".login-container");
@@ -33,6 +35,19 @@ export default function Login() {
     });
   }
 
+  const showErrorMessage = (message) => {
+    if (errorContainerRef.current) {
+      errorContainerRef.current.innerHTML = message;
+      errorContainerRef.current.className = "show";
+
+      setTimeout(() => {
+        errorContainerRef.current.className = "hidden";
+      }, 3000);
+    } else {
+      console.log("errorContainerRef.current is null");
+    }
+  };
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -47,6 +62,7 @@ export default function Login() {
       document.querySelector(".login-container").style.display = "none";
     } catch (err) {
       setError(err.message);
+      showErrorMessage('Invalid username or password');
     }
   };
 
@@ -85,7 +101,9 @@ export default function Login() {
           </label>
           <input type="submit" value="Login" id="submit-login" />
         </form>
-        {error && <p>{error}</p>}
+        <div id="login-error-container" className="hidden" ref={errorContainerRef}>
+          <p id="login-error-message">{error}</p>
+        </div>
       </div>
     </div>
   );
