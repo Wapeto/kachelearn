@@ -1,5 +1,4 @@
 import React, {useContext} from "react";
-import FileUpload from "./FileUpload";
 import NewFileUpload from "./NewFileUpload";
 import FileList from "./FileList";
 import { AuthContext } from "../contexts/AuthContext";
