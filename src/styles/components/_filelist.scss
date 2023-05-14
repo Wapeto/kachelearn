@@ -6,12 +6,18 @@
 
   .scrollable-div {
     @include container(80%, 100%);
+    background-color: $pale-blue;
     padding: 10px;
     margin-bottom: 2em;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    max-height: 500px;
+
+    @media (min-width: $breakpoint-xl) {
+      max-height: 350px;
+    }
 
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
@@ -21,7 +27,7 @@
     }
 
     &::-webkit-scrollbar-track {
-      background: $main-blue;
+      background: $pale-blue;
     }
 
     &::-webkit-scrollbar-thumb {
@@ -36,13 +42,13 @@
     }
 
     .file-container {
-      width: 40%;
+      width: 80%;
       margin: 1em 0;
       border-radius: 8px;
       height: auto;
       padding: 1em;
-      box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2) inset;
-      transition: all 0.1s ease-in;
+      box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
       text-align: center;
       cursor: pointer;
 
@@ -54,17 +60,26 @@
       }
 
       &:hover {
-        box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.4) inset;
+        box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.4);
+      }
+
+      @media (min-width: $breakpoint-lg) {
+        width: 40%;
       }
     }
   }
 
   .search-bar {
-    margin: 0 auto 10px auto;
-    width: 25%;
+    margin: 1em auto 10px auto;
+    width: 50%;
     padding: 8px;
     border-radius: 4px;
     border: 2px solid $darker-blue;
+
+    @media (min-width: $breakpoint-lg) {
+      width: 25%;
+      margin: 0 auto 10px auto;
+    }
   }
 
   #context-menu {

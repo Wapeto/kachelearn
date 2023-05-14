@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import firebase from "../firebaseConfig";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NewFileUpload = ({ filetype, classx }) => {
   const inputRef = useRef(null);
@@ -169,10 +170,9 @@ const NewFileUpload = ({ filetype, classx }) => {
       <div id="info-input-container">
         {showCredentials && (
           <div className="credential-container">
-            <input ref={inputRef} type="text" id="info-input" />
-            <button id="next-button" onClick={NextStep}>
-              {" "}
-              {">"}{" "}
+            <input ref={inputRef} type="text" id="info-input" title="Click to write"/>
+            <button id="next-button" onClick={NextStep} title="Next">
+              <FontAwesomeIcon icon="fa-solid fa-arrow-right" />
             </button>
           </div>
         )}
@@ -188,7 +188,6 @@ const NewFileUpload = ({ filetype, classx }) => {
               hidden
               onChange={handleFileChange}
             />
-            {/* <button id="upload-file-btn" ref={fileUpload}></button> */}
           </div>
         )}
         {showFile && (

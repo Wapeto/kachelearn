@@ -11,12 +11,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 5em;
+  padding: 0 1em;
   list-style: none;
 
   /* Size */
-  width: 80%;
+  width: 70%;
   height: 4em;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: 80%;
+    padding: 0 2em;
+  }
+
+  @media screen and (min-width: $breakpoint-xl) {
+    padding: 0 5em;
+  }
+
 
   /* Style */
   background-color: $darker-blue;
@@ -40,7 +50,9 @@
   }
 
   .backpage-holder {
-    margin: 0 25vw;
+    @media screen and (min-width: $breakpoint-xl) {
+      margin: 0 25vw;
+    }
 
     .backpage-button {
       padding: 0.5em;

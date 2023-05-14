@@ -40,7 +40,7 @@ export default function L2Page() {
         </div>
       </div>
 
-      <div className="choices-container">
+      <div className="choices-container teacher">
         <h2>Ressources</h2>
         <div className="teacher-ressources-container">
         <div

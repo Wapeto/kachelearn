@@ -3,7 +3,6 @@ import Login from "./Login";
 import firebase from "../firebaseConfig";
 import { AuthContext } from "../contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BackPageButton from "./BackPageButton";
 
 export default function Header() {
   const { currentUser } = useContext(AuthContext);
@@ -11,7 +10,7 @@ export default function Header() {
   const handleLogout = async () => {
     try {
       await firebase.auth().signOut();
-      // You can show a success message or redirect the user here !
+      // You can show a success message or redirect the user here
       console.log("Signed out successfully");
     } catch (error) {
       // Handle errors (e.g., show an error message)
@@ -34,9 +33,6 @@ export default function Header() {
                   />
                 </div>
               </a>
-            </li>
-            <li>
-              <div className="backpage-holder">{<BackPageButton />}</div>
             </li>
             <li>
               {currentUser ? (

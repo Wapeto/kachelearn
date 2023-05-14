@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import FileList from "./FileList";
 import TeacherUpload from "./TeacherUpload";
+import BackPageButton from "./BackPageButton";
 
 export default function VocabularyPage({classx}) {
   const { currentUser } = useContext(AuthContext);
@@ -13,7 +14,8 @@ export default function VocabularyPage({classx}) {
   }
   return (
     <div className="component-container">
-      <h1>Vocabulary Page</h1>
+      <BackPageButton />
+      <h1 className="too-big">Vocabulary Page</h1>
 
       <div className="container" id="upld-info-container">
         {!currentUser ? (

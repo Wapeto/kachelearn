@@ -219,4 +219,3 @@ const FileUpload = ({ filetype, classx }) => {
 };
 
 export default FileUpload;
- 

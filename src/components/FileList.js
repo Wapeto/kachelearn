@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import firebase from "../firebaseConfig";
 import { AuthContext } from "../contexts/AuthContext";
 
-
 const FileList = ({ folderPath }) => {
   const { currentUser } = useContext(AuthContext);
 
@@ -90,13 +89,13 @@ const FileList = ({ folderPath }) => {
       <div
         style={{
           overflowY: "scroll",
-          maxHeight: "310px",
           borderRadius: "6px",
         }}
         className="scrollable-div"
       >
-        {files.length === 0 && <div>No files found.</div>}
-        {filteredFiles.length > 0 ? (
+        {files.length === 0 ? (
+          <div>No files found.</div>
+        ) : filteredFiles.length > 0 ? (
           filteredFiles.map((file, index) => (
             <div
               key={index}
@@ -118,29 +117,29 @@ const FileList = ({ folderPath }) => {
         ) : (
           <div>No files matching the search terms.</div>
         )}
-        {contextMenu.visible && currentUser &&(
-            <div
-              style={{
-                top: contextMenu.y,
-                left: contextMenu.x,
-                zIndex: 1000,
-              }}
-              id="context-menu"
+        {contextMenu.visible && currentUser && (
+          <div
+            style={{
+              top: contextMenu.y,
+              left: contextMenu.x,
+              zIndex: 1000,
+            }}
+            id="context-menu"
+          >
+            <p
+              className="button"
+              onClick={() => window.open(contextMenu.file.url, "_blank")}
             >
-              <p
-                className="button"
-                onClick={() => window.open(contextMenu.file.url, "_blank")}
-              >
-                Open
-              </p>
-              <p
-                className="button"
-                onClick={() => deleteFile(contextMenu.file.url)}
-              >
-                Delete
-              </p>
-            </div>
-          )}
+              Open
+            </p>
+            <p
+              className="button"
+              onClick={() => deleteFile(contextMenu.file.url)}
+            >
+              Delete
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

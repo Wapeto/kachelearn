@@ -29,6 +29,7 @@ const TeacherUpload = ({ filetype, classx }) => {
   const handleUpload = async (e) => {
     e.preventDefault();
     const nameInput = document.querySelector(".upld-input input[type=text]");
+    const fileInput = document.querySelector(".choose-file-input");
 
     if (!file || !handleFileReq(file)) {
       alert("Can't upload this :(");
@@ -55,6 +56,7 @@ const TeacherUpload = ({ filetype, classx }) => {
       () => {
         setFile(null);
         nameInput.value = "";
+        fileInput.value = "";
         setUploadProgress(0);
         alert("File uploaded successfully!");
       }

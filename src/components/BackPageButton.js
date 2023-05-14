@@ -23,12 +23,12 @@ export default function BackPageButton() {
   };
 
   return display === "none" ? null : (
-    <div className="backpage-button" onClick={handleBackPage}>
+    <div id="backpage-button" onClick={handleBackPage}>
       <FontAwesomeIcon
-        icon="fa-solid fa-angles-left"
-        style={{ margin: "0 1em 0 0" }}
+        icon="fa-solid fa-arrow-left"
+        className="icon"
       />
-      {display}
+      <p>{display}</p>
     </div>
   );
 }

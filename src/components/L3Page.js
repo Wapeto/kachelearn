@@ -39,7 +39,7 @@ export default function L3Page() {
         </div>
       </div>
 
-      <div className="choices-container">
+      <div className="choices-container teacher">
         <h2>Ressources</h2>
         <div className="teacher-ressources-container">
           <div id="vocab-button" className="button" onClick={handleVocab}>

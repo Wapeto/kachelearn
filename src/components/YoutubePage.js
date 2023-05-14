@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useCallback } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import firebase from "../firebaseConfig";
 import RenderYoutubeSections from "./RenderYoutubeSections";
+import BackPageButton from "./BackPageButton";
 
 export default function YoutubePage({classx}) {
   const { currentUser } = useContext(AuthContext);
@@ -80,6 +81,7 @@ export default function YoutubePage({classx}) {
 
   return (
     <div className="component-container">
+      <BackPageButton />
       <h1>Youtube Page</h1>
       {currentUser ? (
         <div className="container ytb-input-container">

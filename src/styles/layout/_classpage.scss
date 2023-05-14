@@ -8,18 +8,17 @@
 
   h2 {
     text-align: center;
+    font-size: $font-size-4;
+    margin-bottom: 1em;
 
-    @media (min-width: $breakpoint-lg) {
+    @media (min-width: $breakpoint-md) {
       font-size: $font-size-5;
     }
-
-    font-size: 3.5em;
-    margin-bottom: 1em;
   }
 
   .student-uploads-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
@@ -29,9 +28,9 @@
     #upload-portfolio-button {
       @include image-zoomout(
         "../../images/Portfolio1.png",
-        35%,
-        35%,
-        120%,
+        80%,
+        80%,
+        170%,
         100%
       );
     }
@@ -39,29 +38,101 @@
     #upload-objectives-button {
       @include image-zoomout(
         "../../images/Objectives1.png",
-        35%,
-        35%,
-        120%,
+        80%,
+        80%,
+        170%,
         100%
       );
+    }
+
+    @media (min-width: $breakpoint-md) {
+      flex-direction: row;
+
+      #upload-portfolio-button {
+        @include image-zoomout(
+          "../../images/Portfolio1.png",
+          45%,
+          35%,
+          120%,
+          100%
+        );
+      }
+
+      #upload-objectives-button {
+        @include image-zoomout(
+          "../../images/Objectives1.png",
+          45%,
+          35%,
+          120%,
+          100%
+        );
+      }
+    }
+
+    @media (min-width: $breakpoint-xl) {
+      flex-direction: row;
+
+      #upload-portfolio-button {
+        @include image-zoomout(
+          "../../images/Portfolio1.png",
+          35%,
+          35%,
+          120%,
+          100%
+        );
+      }
+
+      #upload-objectives-button {
+        @include image-zoomout(
+          "../../images/Objectives1.png",
+          35%,
+          35%,
+          120%,
+          100%
+        );
+      }
     }
   }
 
   #upload-bilbio-button {
     @include image-zoomout(
       "../../images/Bibliography1.png",
+      80%,
       35%,
-      35%,
-      120%,
+      160%,
       100%
     );
     padding: 0 1em;
     h3 {
+      font-size: $font-size-3;
+
       @media (min-width: $breakpoint-lg) {
         font-size: $font-size-4;
       }
 
-      font-size: $font-size-6;
+      @media (min-width: $breakpoint-xl) {
+        font-size: $font-size-6;
+      }
+    }
+
+    @media screen and (min-width: $breakpoint-lg) {
+      @include image-zoomout(
+        "../../images/Bibliography1.png",
+        45%,
+        35%,
+        120%,
+        100%
+      );
+    }
+
+    @media screen and (min-width: $breakpoint-xl) {
+      @include image-zoomout(
+        "../../images/Bibliography1.png",
+        35%,
+        35%,
+        120%,
+        100%
+      );
     }
   }
 
@@ -71,19 +142,22 @@
     cursor: pointer;
     box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.3);
     transition: box-shadow 0.3s ease-in;
+    margin: 1em auto;
+
+    @media screen and (min-width: $breakpoint-lg) {
+      margin: auto;
+    }
 
     h3 {
-      //! Style for responsive font-size
       @include text-stroke($darker-blue, 1px);
-
-      @media (min-width: $breakpoint-lg) {
-        font-size: $font-size-4;
-      }
-
-      font-size: 4em;
+      font-size: $font-size-3;
       font-family: $title-font-family;
       text-align: center;
       font-weight: 800;
+
+      @media (min-width: $breakpoint-lg) {
+        font-size: $font-size-5;
+      }
     }
   }
 }
@@ -95,7 +169,7 @@
   #vocab-button {
     @include image-zoomout(
       "../../images/tiled-bg5.png",
-      25%,
+      80%,
       35%,
       80%,
       65%,
@@ -106,7 +180,7 @@
   #gramm-button {
     @include image-zoomout(
       "../../images/tiled-bg3.png",
-      25%,
+      80%,
       35%,
       80%,
       65%,
@@ -117,7 +191,7 @@
   #ytb-button {
     @include image-zoomout(
       "../../images/tiled-bg2.png",
-      25%,
+      80%,
       35%,
       80%,
       65%,
@@ -125,11 +199,90 @@
     );
   }
 
+  @media screen and (min-width: $breakpoint-md) {
+    #vocab-button {
+      @include image-zoomout(
+        "../../images/tiled-bg5.png",
+        28%,
+        35%,
+        80%,
+        65%,
+        repeat
+      );
+    }
+
+    #gramm-button {
+      @include image-zoomout(
+        "../../images/tiled-bg3.png",
+        28%,
+        35%,
+        80%,
+        65%,
+        repeat
+      );
+    }
+
+    #ytb-button {
+      @include image-zoomout(
+        "../../images/tiled-bg2.png",
+        28%,
+        35%,
+        80%,
+        65%,
+        repeat
+      );
+    }
+  }
+
+  @media screen and (min-width: $breakpoint-xl) {
+    #vocab-button {
+      @include image-zoomout(
+        "../../images/tiled-bg5.png",
+        25%,
+        35%,
+        80%,
+        65%,
+        repeat
+      );
+    }
+
+    #gramm-button {
+      @include image-zoomout(
+        "../../images/tiled-bg3.png",
+        25%,
+        35%,
+        80%,
+        65%,
+        repeat
+      );
+    }
+
+    #ytb-button {
+      @include image-zoomout(
+        "../../images/tiled-bg2.png",
+        25%,
+        35%,
+        80%,
+        65%,
+        repeat
+      );
+    }
+  }
+
+
   .button > h3 {
     @include text-stroke($darker-blue, 1px);
 
+    @media (min-width: $breakpoint-md) {
+      font-size: $font-size-2;
+    }
+
     @media (min-width: $breakpoint-lg) {
       font-size: $font-size-3;
+    }
+
+    @media (min-width: $breakpoint-xl) {
+      font-size: $font-size-4;
     }
   }
 }
