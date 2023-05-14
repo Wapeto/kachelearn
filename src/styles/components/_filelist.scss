@@ -80,6 +80,11 @@
       width: 25%;
       margin: 0 auto 10px auto;
     }
+
+    &:focus {
+      outline: none;
+      border: 2px solid $main-blue;
+    }
   }
 
   #context-menu {

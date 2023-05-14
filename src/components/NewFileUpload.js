@@ -18,29 +18,7 @@ const NewFileUpload = ({ filetype, classx }) => {
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [step, setStep] = useState(1);
-  useEffect(() => {
-    // console.log("Step: ", step);
-    switch (step) {
-      case 1:
-        if (inputRef.current) {
-          inputRef.current.placeholder = "Enter your student email";
-        }
-        break;
-      case 2:
-        getEmail();
-        inputRef.current.placeholder = "Enter your full name";
-        inputRef.current.value = "";
-        break;
-      case 3:
-        getName();
-        setShowCredentials(false);
-        setShowFileChoice(true);
-        break;
-      default:
-        break;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step]);
+
 
   useEffect(() => {
     if (file) {
@@ -89,40 +67,8 @@ const NewFileUpload = ({ filetype, classx }) => {
     ) {
       return true;
     } else {
-      return false;
-    }
-  };
-  const getEmail = () => {
-    if (inputRef.current.value) {
-      if (handleEmail(inputRef.current.value)) {
-        setEmail(inputRef.current.value);
-        console.log("Valid email");
-      } else {
-        console.log("Invalid email");
-        showErrorMessage("Please enter a valid student email");
-        setStep(step - 1);
-      }
-    } else {
-      console.log("Invalid email");
-      showErrorMessage("Please enter a valid student email");
-      setStep(step - 1);
-    }
-  };
-
-  const getName = () => {
-    if (inputRef.current.value) {
-      if (handleName(inputRef.current.value)) {
-        setName(inputRef.current.value);
-        console.log("Valid name: ", inputRef.current.value);
-      } else {
-        console.log("Invalid name");
-        showErrorMessage("Please enter a valid name");
-        setStep(step - 1);
-      }
-    } else {
       console.log("Invalid name");
-      showErrorMessage("Please enter a valid name");
-      setStep(step - 1);
+      return false;
     }
   };
 
@@ -162,8 +108,48 @@ const NewFileUpload = ({ filetype, classx }) => {
   };
 
   const NextStep = () => {
-    setStep(step + 1);
+    if (step === 1 && handleEmail(inputRef.current.value)) {
+      setEmail(inputRef.current.value);
+      setStep(step + 1);
+    } else if (step === 2 && handleName(inputRef.current.value)) {
+      setName(inputRef.current.value);
+      setStep(step + 1);
+    } else {
+      if (step === 1) {
+        showErrorMessage("Please enter a valid student email");
+      } else if (step === 2) {
+        showErrorMessage("Please enter your full name (ex: John Doe)");
+      }
+    }
   };
+
+  useEffect(() => {
+    // console.log("Step: ", step);
+    switch (step) {
+      case 1:
+        if (inputRef.current) {
+          inputRef.current.placeholder = "Enter your student email";
+          inputRef.current.value = "";
+        }
+        break;
+      case 2:
+        if (inputRef.current) {
+          inputRef.current.placeholder = "Enter your full name";
+          inputRef.current.value = "";
+        }
+        break;
+      case 3:
+        setShowCredentials(false);
+        setShowFileChoice(true);
+        break;
+      default:
+        console.log("Invalid step");
+        break;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
+
+
 
   return (
     <div id="file-upld">
