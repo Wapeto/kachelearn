@@ -11,7 +11,7 @@ export default function Header() {
   const handleLogout = async () => {
     try {
       await firebase.auth().signOut();
-      // You can show a success message or redirect the user here
+      // You can show a success message or redirect the user here !
       console.log("Signed out successfully");
     } catch (error) {
       // Handle errors (e.g., show an error message)
